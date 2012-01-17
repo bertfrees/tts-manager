@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tts-manager" default="jar" basedir=".">
+
+    <description>tts-manager.</description>
+    
+    <tstamp><format property="ISO-TODAY" pattern="yyyy-MM-dd"/></tstamp>
+
+    <target name="clean">
+
+        <delete dir="build"/>
+        <delete dir="dist"/>
+
+    </target>
+
+    <target name="jar" description="Build jar" depends="clean">
+       
+    	<mkdir dir="build"/>
+    	<mkdir dir="dist"/>
+
+        <property name="file.reference.asm"       value="lib/asm-3.1.jar"/>
+        <property name="file.reference.cglib"     value="lib/cglib-2.2.jar"/>
+        <property name="file.reference.com4j"     value="lib/com4j.jar"/>
+        <property name="file.reference.jna"       value="lib/jna-3.2.2.jar"/>
+        <property name="file.reference.okapi"     value="lib/okapi-lib-0.14.jar"/>
+        <property name="file.reference.rococoa"   value="lib/rococoa-core-0.5.jar"/>
+        <property name="file.reference.sapi"      value="lib/sapi-0.1.0.jar"/>
+        <property name="file.reference.slf4j-api" value="lib/slf4j-api-1.5.8.jar"/>
+        <property name="file.reference.slf4j-jdk" value="lib/slf4j-jdk14-1.5.8.jar"/>
+        <property name="file.reference.xalan"     value="lib/xalan.jar"/>
+
+        <path id="javac.classpath">
+            <pathelement location="${file.reference.asm}"/>
+            <pathelement location="${file.reference.cglib}"/>
+            <pathelement location="${file.reference.com4j}"/>
+            <pathelement location="${file.reference.jna}"/>
+            <pathelement location="${file.reference.okapi}"/>
+            <pathelement location="${file.reference.rococoa}"/>
+            <pathelement location="${file.reference.sapi}"/>
+            <pathelement location="${file.reference.slf4j-api}"/>
+            <pathelement location="${file.reference.slf4j-jdk}"/>
+            <pathelement location="${file.reference.xalan}"/>
+        </path>
+
+        <pathconvert property="classpath.attribute"
+                     refid="javac.classpath" pathsep=" " dirsep="/">
+            <flattenmapper/>
+        </pathconvert>
+
+        <javac srcdir="src" destdir="build" includeantruntime="false"
+               debug="true" encoding="UTF-8" source="1.6" target="1.6">
+            <classpath>
+                <path refid="javac.classpath"/>
+            </classpath>
+        </javac>
+
+    	<jar destfile="dist/tts-manager.jar">
+            <fileset dir="build"/>
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Built-On" value="${ISO-TODAY}"/>
+                <attribute name="Implementation-Title" value="TTS manager"/>
+                <attribute name="Class-Path" value="${classpath.attribute}"/>
+            </manifest>
+        </jar>
+
+    </target>
+
+</project>
