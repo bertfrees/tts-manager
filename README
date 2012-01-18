@@ -1,0 +1,18 @@
+Dependencies:
+=============
+
+ + xalan: XML transformations
+
+ Windows:
+ --------
+ + sapi: Java bindings for Microsoft Speech API
+    + com4j: Java-COM interface
+ + okapi: Support for LCID language codes
+
+ Mac:
+ ----
+ + rococoa: Java-Cocoa interface
+    + jna: Java Native Access
+    + slf
+    + cglib
+       + asm
